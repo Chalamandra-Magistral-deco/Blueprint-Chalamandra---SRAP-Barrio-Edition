@@ -1,25 +1,32 @@
 {
-  "name": "app",
+  "name": "blueprint-chalamandra-srap-barrio-edition",
   "version": "1.0.0",
-  "description": "Este es un proyecto web ligero y gamificado para el desarrollo personal, enfocado en manejar el caos y encontrar el flow.",
+  "description": "Juego web gamificado de desarrollo personal basado en la metodología SRAP. Maneja el caos, encuentra el flow.",
   "main": "index.js",
+  "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "serve .",
+    "dev": "serve .",
+    "test": "echo \"Ejecutar: npm run test:interaction && npm run test:screenshot\"",
+    "test:interaction": "python3 tests/verify_interaction.py",
+    "test:screenshot": "python3 tests/verify_screenshot.py",
+    "test:all": "npm run test:interaction && npm run test:screenshot"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brasdefer1597-cloud/Blueprint-Chalamandra---SRAP-Barrio-Edition.git"
+    "url": "git+https://github.com/Chalamandra-Magistral-deco/Blueprint-Chalamandra---SRAP-Barrio-Edition.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["srap", "chalamandra", "gamificacion", "desarrollo-personal", "flow"],
+  "author": "Chalamandra Magistral DecoX",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/brasdefer1597-cloud/Blueprint-Chalamandra---SRAP-Barrio-Edition/issues"
+    "url": "https://github.com/Chalamandra-Magistral-deco/Blueprint-Chalamandra---SRAP-Barrio-Edition/issues"
   },
-  "homepage": "https://github.com/brasdefer1597-cloud/Blueprint-Chalamandra---SRAP-Barrio-Edition#readme",
+  "homepage": "https://github.com/Chalamandra-Magistral-deco/Blueprint-Chalamandra---SRAP-Barrio-Edition#readme",
   "devDependencies": {
     "prettier": "^3.7.4",
     "serve": "^14.2.5"
-  }
+  },
+  "comment_python_deps": "Tests requieren: pip install playwright && playwright install chromium"
 }

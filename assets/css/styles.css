@@ -155,3 +155,38 @@ body {
   0%, 100% { transform: translateY(0) rotate(-10deg); }
   50% { transform: translateY(-10px) rotate(10deg); }
 }
+
+/* === Palette: Focus Visible (keyboard accessibility) === */
+/* Aplicado por consolidación 2026-10-02 */
+
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--neon-lime);
+  outline-offset: 3px;
+  border-radius: 4px;
+  transition: outline-color 0.15s ease-in-out;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--neon-lime);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgba(204, 255, 0, 0.2);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
