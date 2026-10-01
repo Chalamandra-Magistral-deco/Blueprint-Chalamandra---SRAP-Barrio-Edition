@@ -62,7 +62,11 @@ const modalMessage = document.getElementById("modal-message");
 // === 3. FUNCIONES DE UI Y ALERTA PERSONALIZADA ===
 
 function sanitizeHTML(html) {
-  const doc = new DOMParser().parseFromString(html, "text/html");
+  // Sentinel fix: strip control characters and unicode replacement chars
+  // that can evade detection (e.g. "java\x00script:")
+  const cleaned = html.replace(/[\x00-\x1F\x7F-\x9F\uFFFD]/g, "");
+
+  const doc = new DOMParser().parseFromString(cleaned, "text/html");
   const dangerousTags = doc.querySelectorAll(
     "script, iframe, object, embed, base, form, math, svg",
   );
@@ -72,12 +76,17 @@ function sanitizeHTML(html) {
     for (let i = el.attributes.length - 1; i >= 0; i--) {
       const attr = el.attributes[i];
       const name = attr.name.toLowerCase();
-      const value = attr.value.trim().toLowerCase();
+      // Normalize value: remove control chars before checking schemes
+      const value = attr.value
+        .replace(/[\x00-\x1F\x7F-\x9F\uFFFD]/g, "")
+        .trim()
+        .toLowerCase();
       if (
         name.startsWith("on") ||
         name === "srcdoc" ||
         value.startsWith("javascript:") ||
-        value.startsWith("data:")
+        value.startsWith("data:") ||
+        value.startsWith("vbscript:")
       ) {
         el.removeAttribute(attr.name);
       }
