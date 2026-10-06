@@ -5,8 +5,8 @@
   "main": "index.js",
   "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "start": "serve .",
-    "dev": "serve .",
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
     "test": "echo \"Ejecutar: npm run test:interaction && npm run test:screenshot\"",
     "test:interaction": "python3 tests/verify_interaction.py",
     "test:screenshot": "python3 tests/verify_screenshot.py",
@@ -16,7 +16,13 @@
     "type": "git",
     "url": "git+https://github.com/Chalamandra-Magistral-deco/Blueprint-Chalamandra---SRAP-Barrio-Edition.git"
   },
-  "keywords": ["srap", "chalamandra", "gamificacion", "desarrollo-personal", "flow"],
+  "keywords": [
+    "srap",
+    "chalamandra",
+    "gamificacion",
+    "desarrollo-personal",
+    "flow"
+  ],
   "author": "Chalamandra Magistral DecoX",
   "license": "ISC",
   "type": "commonjs",
@@ -25,8 +31,7 @@
   },
   "homepage": "https://github.com/Chalamandra-Magistral-deco/Blueprint-Chalamandra---SRAP-Barrio-Edition#readme",
   "devDependencies": {
-    "prettier": "^3.7.4",
-    "serve": "^14.2.5"
+    "prettier": "^3.7.4"
   },
   "comment_python_deps": "Tests requieren: pip install playwright && playwright install chromium"
 }
