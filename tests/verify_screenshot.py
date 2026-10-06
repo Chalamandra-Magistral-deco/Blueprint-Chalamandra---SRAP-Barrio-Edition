@@ -1,3 +1,4 @@
+from pathlib import Path
 import time
 import subprocess
 import sys
@@ -40,7 +41,8 @@ def run_verification():
             assert "srap-active" in step_scan.get_attribute("class")
 
             # Take screenshot
-            screenshot_path = "/home/jules/verification/srap_active.png"
+            screenshot_path = str(Path(__file__).resolve().parent.parent / "verification" / "srap_active.png")
+            Path(screenshot_path).parent.mkdir(parents=True, exist_ok=True)
             page.screenshot(path=screenshot_path)
             print(f"Screenshot saved to {screenshot_path}")
 
