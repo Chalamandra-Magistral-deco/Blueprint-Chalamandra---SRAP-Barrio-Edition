@@ -28,6 +28,13 @@ def run_test():
 
             print("Verifying initial DEMO state...")
             assert page.is_visible("#level-0")
+            assert page.get_by_role("heading", name="Blueprint Chalamandra™").count() == 1
+            assert page.locator('meta[name="description"]').count() == 1
+            structured_data = page.locator(
+                'script[type="application/ld+json"]'
+            ).evaluate("(element) => JSON.parse(element.textContent)")
+            assert structured_data["@type"] == "WebApplication"
+            assert page.get_by_role("navigation", name="Navegación por niveles").count() == 1
             insight_counter = page.locator("#insight-counter")
             assert insight_counter.inner_text() == "0"
 
@@ -40,16 +47,25 @@ def run_test():
             step_scan = page.locator("#srap-scan")
             step_scan.click()
 
-            print("Dismissing modal...")
-            page.click("text=Entendido, Carnal")
+            dialog = page.get_by_role("dialog")
+            assert dialog.is_visible()
+            assert dialog.get_attribute("aria-modal") == "true"
+            assert page.evaluate("document.activeElement.tagName") == "BUTTON"
+            page.keyboard.press("Tab")
+            assert page.evaluate("document.activeElement.tagName") == "BUTTON"
+            page.keyboard.press("Escape")
+            assert "srap-scan" in page.evaluate("document.activeElement.id")
+            assert not dialog.is_visible()
 
             assert insight_counter.inner_text() == "1"
             assert "srap-active" in step_scan.get_attribute("class")
 
             print("Clicking same step again...")
-            step_scan.click()
+            step_scan.focus()
+            page.keyboard.press("Enter")
 
-            print("Dismissing modal again...")
+            assert dialog.is_visible()
+            assert page.locator("#modal-title").inner_text() == "Paso Completo"
             page.click("text=Entendido, Carnal")
 
             assert insight_counter.inner_text() == "1"
@@ -69,7 +85,7 @@ def run_test():
             browser.close()
 
     except Exception as e:
-        print(f"Test FAILED: {e}")
+        print(f"Test FAILED: {e!r}")
         sys.exit(1)
     finally:
         server.terminate()

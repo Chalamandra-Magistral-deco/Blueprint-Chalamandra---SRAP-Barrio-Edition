@@ -6,10 +6,11 @@
   "scripts": {
     "start": "python3 -m http.server 8000",
     "dev": "python3 -m http.server 8000",
-    "test": "npm run test:interaction",
+    "test": "npm run test:api && npm run test:interaction",
+    "test:api": "node --test tests/api-checkout.test.js",
     "test:interaction": "python3 tests/verify_interaction.py",
     "test:screenshot": "python3 tests/verify_screenshot.py",
-    "test:all": "npm run test:interaction && npm run test:screenshot"
+    "test:all": "npm run test:api && npm run test:interaction && npm run test:screenshot"
   },
   "repository": {
     "type": "git",

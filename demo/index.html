@@ -4,6 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blueprint Chalamandra - SRAP Barrio Edition</title>
+    <meta
+      name="description"
+      content="Explora SRAP Barrio Edition: una experiencia interactiva para observar el caos, respirar y elegir tu siguiente paso."
+    />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta
+      property="og:title"
+      content="Blueprint Chalamandra - SRAP Barrio Edition"
+    />
+    <meta
+      property="og:description"
+      content="Una experiencia interactiva para observar el caos, respirar y elegir tu siguiente paso."
+    />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Blueprint Chalamandra - SRAP Barrio Edition",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "es-MX",
+        "description": "Experiencia interactiva de desarrollo personal basada en la metodología SRAP."
+      }
+    </script>
     <!-- Carga de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Carga de fuentes para el estilo "Graffiti/Neon" -->
@@ -18,7 +45,11 @@
     <header
       class="fixed top-0 left-0 right-0 p-4 bg-gray-900/90 shadow-2xl z-20 flex items-center justify-between"
     >
-      <div id="nav-container" class="flex space-x-2">
+      <nav
+        id="nav-container"
+        aria-label="Navegación por niveles"
+        class="flex space-x-2"
+      >
         <button
           id="nav-btn-0"
           onclick="renderLevel(0)"
@@ -47,14 +78,20 @@
         >
           N. 5
         </button>
-      </div>
+      </nav>
 
       <!-- Contador de Gamificación (Global) -->
       <div
         class="bg-gray-800 p-2 rounded-xl shadow-lg border border-lime-500/50"
       >
         <p class="text-xs font-bold text-lime-400 uppercase">Insight 🎯</p>
-        <p id="insight-counter" class="text-xl font-black text-white">0</p>
+        <p
+          id="insight-counter"
+          aria-live="polite"
+          class="text-xl font-black text-white"
+        >
+          0
+        </p>
       </div>
     </header>
 
@@ -65,7 +102,9 @@
       <h1
         id="main-title"
         class="graffiti-title text-4xl sm:text-5xl mb-8 font-extrabold text-white"
-      ></h1>
+      >
+        Blueprint Chalamandra™
+      </h1>
 
       <!-- SECCIONES DE NIVELES -->
 
@@ -77,8 +116,8 @@
         <p
           class="text-lime-400 text-lg sm:text-xl mb-6 max-w-md italic font-semibold mx-auto"
         >
-          “Orale mi carnala, bienvenid@ al caos chido: descubre tu **CHAOS
-          Factor** y domina tu flow.”
+          “Orale mi carnala, bienvenid@ al caos chido: descubre tu
+          <strong>CHAOS Factor</strong> y domina tu flow.”
         </p>
 
         <p class="text-base text-gray-400 mb-8">
@@ -113,8 +152,10 @@
       >
         <p class="text-base text-gray-400 mb-6 font-semibold">
           Scan → Respira → Alinea → Pausa, pero con flow cholo-fresa-malandra.
-          **La DOMINACIÓN se logra al completar la Tarea de Reflexión antes de
-          hacer click.**
+          <strong
+            >La DOMINACIÓN se logra al completar la Tarea de Reflexión antes de
+            hacer click.</strong
+          >
         </p>
 
         <div id="srap-steps-container" class="space-y-4">
@@ -127,8 +168,8 @@
               1. SCAN 🔍 (El Sensor)
             </p>
             <p class="text-sm text-gray-300 mt-1">
-              Mira tu caos alrededor, ¿qué te está frenando? **Tarea:** Nombra 1
-              impulso sin juzgarlo.
+              Mira tu caos alrededor, ¿qué te está frenando?
+              <strong>Tarea:</strong> Nombra 1 impulso sin juzgarlo.
             </p>
           </div>
           <div
@@ -140,8 +181,9 @@
               2. RESPIRA 🧘‍♀️ (El Ancla)
             </p>
             <p class="text-sm text-gray-300 mt-1">
-              Toma 3 segundos para tu flow interno. **Tarea:** Identifica el
-              sentimiento raíz (no la reacción).
+              Toma 3 segundos para tu flow interno.
+              <strong>Tarea:</strong> Identifica el sentimiento raíz (no la
+              reacción).
             </p>
           </div>
           <div
@@ -153,8 +195,9 @@
               3. ALINEA 🎯 (El GPS)
             </p>
             <p class="text-sm text-gray-300 mt-1">
-              Conecta emoción + razón → tu ritmo real. **Tarea Premium:**
-              Escribe 1 frase de intención poderosa (+2 Insights).
+              Conecta emoción + razón → tu ritmo real.
+              <strong>Tarea:</strong> Escribe 1 frase de intención poderosa (+2
+              Insights).
             </p>
           </div>
           <div
@@ -166,8 +209,8 @@
               4. PAUSA 🛑 (La Estrategia)
             </p>
             <p class="text-sm text-gray-300 mt-1">
-              Observa y actúa con estrategia warrior. **Tarea:** Define el
-              primer paso concreto.
+              Observa y actúa con estrategia warrior.
+              <strong>Tarea:</strong> Define el primer paso concreto.
             </p>
           </div>
         </div>
@@ -179,20 +222,26 @@
           ¡Nivel 3: Caos Controlado! 🌪
         </button>
       </section>
+    </main>
 
     <!-- MODAL DE ALERTA PERSONALIZADO (Reemplazo de showCustomAlert()) -->
     <div
       id="custom-modal"
       class="fixed inset-0 hidden items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-message"
+      aria-hidden="true"
     >
       <div
         id="modal-content"
         class="max-w-md w-full p-6 rounded-2xl text-center"
       >
-        <h3 id="modal-title" class="text-2xl font-black text-lime-400 mb-3">
+        <h2 id="modal-title" class="text-2xl font-black text-lime-400 mb-3">
           ¡Insight Revelado!
-        </h3>
-        <p id="modal-message" class="text-white mb-6 text-base"></p>
+        </h2>
+        <div id="modal-message" class="text-white mb-6 text-base"></div>
         <button
           onclick="hideCustomAlert()"
           class="cta-button px-6 py-2 rounded-full text-sm"
@@ -206,7 +255,13 @@
     <footer class="text-center text-gray-600 text-xs mt-4">
       <p class="salamandra">🐉</p>
       <p>*Salamandras bailando ballet folklórico con flow.</p>
-    <button onclick="resetGame()" class="text-[10px] text-gray-700 hover:text-red-500 transition-colors mt-2">Reiniciar Progreso</button></footer>
+      <button
+        onclick="resetGame()"
+        class="text-[10px] text-gray-700 hover:text-red-500 transition-colors mt-2"
+      >
+        Reiniciar Progreso
+      </button>
+    </footer>
 
     <script src="../assets/js/script.js"></script>
     <script>

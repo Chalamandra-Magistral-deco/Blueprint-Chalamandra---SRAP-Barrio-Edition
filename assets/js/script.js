@@ -57,6 +57,8 @@ const levelTitles = {
 const customModal = document.getElementById("custom-modal");
 const modalTitle = document.getElementById("modal-title");
 const modalMessage = document.getElementById("modal-message");
+const modalCloseButton = customModal.querySelector("button");
+let lastFocusedElement = null;
 
 // === 3. FUNCIONES DE UI Y ALERTA PERSONALIZADA ===
 
@@ -95,26 +97,27 @@ function sanitizeHTML(html) {
 }
 
 function showCustomAlert(message, title = "¡Notificación Warrior!") {
+  lastFocusedElement = document.activeElement;
   modalTitle.textContent = title;
   modalMessage.innerHTML = sanitizeHTML(message);
   customModal.classList.remove("hidden");
   customModal.classList.add("flex");
+  customModal.setAttribute("aria-hidden", "false");
+  modalCloseButton.focus();
 }
 
 function hideCustomAlert() {
   customModal.classList.add("hidden");
   customModal.classList.remove("flex");
+  customModal.setAttribute("aria-hidden", "true");
+  if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
 }
 
 function showPaywallModal() {
-  const kofiUrl = "https://ko-fi.com/s/8b46c1c1cd";
   const message = `
     <p class="mb-4">¡Alto ahí, Warrior! Has dominado la Demo.</p>
     <p class="mb-4">Para acceder al <strong>Caos Controlado (Nivel 3)</strong> y al <strong>Mandala Multiconsciente (Nivel 5)</strong>, necesitas la versión completa.</p>
-    <a href="${kofiUrl}" target="_blank" class="cta-button px-6 py-3 rounded-full text-base font-bold inline-block mt-2 text-black hover:text-black">
-      🔓 Desbloquear Premium
-    </a>
-    <p class="text-xs text-gray-400 mt-4">Acceso inmediato tras el pago.</p>
+    <p class="text-sm text-gray-400 mt-4">El acceso Premium todavía no está disponible para compra.</p>
   `;
   showCustomAlert(message, "ZONA VIP BLOQUEADA");
 }
@@ -260,7 +263,7 @@ function collectInsight(element, stepId, points) {
   }
   const gained = applyCombo(points);
   gameState.collectedSteps[stepId] = true;
-  let message = `¡Paso SRAP **${stepId.toUpperCase()}** completado! Has ganado **${gained} Insights**.`;
+  let message = `¡Paso SRAP <strong>${stepId.toUpperCase()}</strong> completado! Has ganado <strong>${gained} Insights</strong>.`;
   if (gameState.comboCount >= 3) {
     message += `<br/><span class="text-neon-blue font-bold">¡COMBO ACTIVADO! (x${Math.min(Math.floor(gameState.comboCount / 3) + 1, 3)})</span>`;
   }
@@ -376,15 +379,27 @@ function enhanceAccessibility() {
     element.setAttribute("role", "button");
     element.setAttribute("tabindex", "0");
   });
-  document.body.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      const target = e.target.closest(selectorString);
-      if (target) {
+  if (!document.body.dataset.keyboardControlsReady) {
+    document.body.dataset.keyboardControlsReady = "true";
+    document.body.addEventListener("keydown", (e) => {
+      if (e.key === "Tab" && !customModal.classList.contains("hidden")) {
         e.preventDefault();
-        target.click();
+        modalCloseButton.focus();
+        return;
       }
-    }
-  });
+      if (e.key === "Escape" && !customModal.classList.contains("hidden")) {
+        hideCustomAlert();
+        return;
+      }
+      if (e.key === "Enter" || e.key === " ") {
+        const target = e.target.closest(selectorString);
+        if (target) {
+          e.preventDefault();
+          target.click();
+        }
+      }
+    });
+  }
 }
 
 // === 7. INICIALIZACIÓN ===
