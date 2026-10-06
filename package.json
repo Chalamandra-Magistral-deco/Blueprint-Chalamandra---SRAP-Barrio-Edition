@@ -2,12 +2,11 @@
   "name": "blueprint-chalamandra-srap-barrio-edition",
   "version": "1.0.0",
   "description": "Juego web gamificado de desarrollo personal basado en la metodología SRAP. Maneja el caos, encuentra el flow.",
-  "main": "index.js",
   "packageManager": "pnpm@9.0.0",
   "scripts": {
     "start": "python3 -m http.server 8000",
     "dev": "python3 -m http.server 8000",
-    "test": "echo \"Ejecutar: npm run test:interaction && npm run test:screenshot\"",
+    "test": "npm run test:interaction",
     "test:interaction": "python3 tests/verify_interaction.py",
     "test:screenshot": "python3 tests/verify_screenshot.py",
     "test:all": "npm run test:interaction && npm run test:screenshot"
@@ -33,5 +32,5 @@
   "devDependencies": {
     "prettier": "^3.7.4"
   },
-  "comment_python_deps": "Tests requieren: pip install playwright && playwright install chromium"
+  "comment_python_deps": "Tests requieren: python3 -m pip install playwright && playwright install chromium"
 }

@@ -34,7 +34,6 @@ function saveState() {
 const levelSections = document.querySelectorAll(".level-section");
 const mainTitle = document.getElementById("main-title");
 const insightCounter = document.getElementById("insight-counter");
-const chaosMetricDisplay = document.getElementById("chaos-metric-display");
 const metricDisaster = document.getElementById("metric-disaster");
 const metricFlow = document.getElementById("metric-flow");
 

@@ -2,51 +2,28 @@
 
 Este es un proyecto web ligero y gamificado para el desarrollo personal, enfocado en manejar el caos y encontrar el flow.
 
-## Arquitectura de Flujo Premium
-
-El siguiente diagrama ilustra el flujo del usuario desde la versión Demo hasta la versión Premium Completa:
-
-```mermaid
-graph TD
-    User([Usuario]) --> Demo[Demo Gratis (Nivel 0-2)]
-    Demo --> |Intentar Avanzar| Paywall{Paywall}
-    Paywall --> |Comprar| Payment[Proceso de Pago (Ko-fi)]
-    Payment --> |Éxito| Full[Versión Completa (Nivel 0-5)]
-    Full --> Mastery([Dominio del Flow])
-```
-
 ## Estructura del Proyecto
 
-El proyecto ha sido reorganizado para mayor claridad y mantenibilidad:
+```text
+api/                  Endpoint provisional de checkout
+assets/css/           Estilos
+assets/js/            Lógica de la demo
+demo/                 Aplicación web pública
+docs/                 Oferta y contratos de flujo de pago
+tests/                Pruebas de interacción y captura
+```
 
-- `assets/`: Contiene los archivos CSS y JS compartidos.
-  - `css/styles.css`: Estilos visuales del proyecto.
-  - `js/script.js`: Lógica de la aplicación y gamificación (Soporte Multi-Modo).
-- `demo/`: Versión de demostración del proyecto.
-  - `index.html`: Punto de entrada para la demo (Modo 'demo').
-- `full/`: Versión completa del entrenamiento.
-  - `index.html`: Punto de entrada para la versión completa (Modo 'full').
+La versión completa no está incluida en el árbol público. El checkout en `api/checkout.js` es provisional y responde `501`; no se procesan pagos ni se emiten autorizaciones Premium.
 
-## Cómo usar
+## Cómo ejecutar
 
-1.  **Demo**: Abre `demo/index.html`. Tendrás acceso limitado.
-2.  **Premium**: Tras el pago, el usuario es redirigido a `full/index.html` donde tiene acceso total.
+Abre `demo/index.html`, o ejecuta `npm run dev` y visita `http://localhost:8000/demo/`.
 
-## Desarrollo
-
-Para editar el código:
-
-1.  Modifica `assets/css/styles.css` para cambios visuales.
-2.  Modifica `assets/js/script.js` para cambios en la lógica.
-3.  Los archivos HTML en `demo/` y `full/` consumen estos recursos compartidos inicializando el juego con `initGame('demo')` o `initGame('full')`.
-
-## Comandos
-
-- `npm install`: Instala dependencias de desarrollo.
-- `npm run start`: Inicia un servidor local.
+`npm test` ejecuta la prueba de interacción. Para ejecutar también la prueba de captura, usa `npm run test:all`. Las pruebas requieren Python 3, Playwright para Python y Chromium.
 
 ## Tecnologías
 
 - HTML5
 - CSS3 (con Tailwind CSS vía CDN)
 - JavaScript (Vanilla)
+- API serverless de Vercel (checkout aún no configurado)
